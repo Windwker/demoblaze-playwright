@@ -1,7 +1,6 @@
 import {BasePage} from "./BasePage";
 import {Locator, Page} from "@playwright/test";
 import {CartPage} from "./CartPage";
-import {HeaderWidget} from "./HeaderWidget";
 
 export class ProductPage extends BasePage {
     private readonly add_to_cart_btn: Locator

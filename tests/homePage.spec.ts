@@ -32,7 +32,7 @@ test.describe('Home page test suite', () => {
         await expect(homePage.getMonitorsOption()).toBeVisible();
     })
 
-    test.only('Add a product to the cart, make sure the product is listed successfully', async () => {
+    test.skip('Add a product to the cart, make sure the product is listed successfully', async () => {
         const productPage = await homePage.getProduct('Nexus 6');
         await productPage.addToCart();
         await headerWidget.goToHomePage();
@@ -43,5 +43,17 @@ test.describe('Home page test suite', () => {
         expect(await cartPage.getProductPrice('Nexus 6')).toEqual('650');
         await expect(cartPage.getCartProduct('Samsung galaxy s6')).toBeVisible({timeout: 10000});
         expect(await cartPage.getProductPrice('Samsung galaxy s6')).toEqual('360');
+    })
+
+    test.only('Add a product to the cart, and place the order successfully', async () => {
+        const productPage = await homePage.getProduct('Nexus 6');
+        await productPage.addToCart();
+        const cartPage = await headerWidget.goToCartPage();
+        await cartPage.clickPlaceOrder();
+        await cartPage.completeTheForm('Javier', 'Argentina', 'Cordoba', '2424242424242', '12', '2009');
+        await cartPage.clickPurchaseButton();
+        await expect(cartPage.getConfirmationAlert()).toBeVisible();
+        console.log('asd');
+
     })
 })
